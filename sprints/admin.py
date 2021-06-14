@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import SprintGoal
+from .models import Sprint
+# SprintGoal, Mood
 
 
-admin.site.register(SprintGoal)
-
+admin.site.register(Sprint)
+# admin.site.register(Mood)
