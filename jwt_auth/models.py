@@ -6,7 +6,7 @@ from django.db.models.fields import BooleanField
 class User(AbstractUser):
     name = models.CharField(max_length=50)
     username = models.CharField(max_length = 50, blank = True, null = True, unique = True)
-    email = models.EmailField(_('email address'), unique = True)
+    email = models.EmailField('email address', unique = True)
     avatar = models.CharField(max_length=250)
     theme_preference = BooleanField
     USERNAME_FIELD = 'email'
