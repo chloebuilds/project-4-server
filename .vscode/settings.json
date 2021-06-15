@@ -2,12 +2,20 @@
   "python.pythonPath": "/Users/elsaguibert/.local/share/virtualenvs/server-Nr5nk5hv/bin/python",
   "python.linting.pylintEnabled": true,
   "workbench.colorCustomizations": {
-    "statusBar.background": "#82A3FF",
-    "titleBar.activeBackground": "#82A3FF",
-    "titleBar.inactiveBackground": "#82A3FF",
-    "statusBar.foreground": "#000",
-    "titleBar.inactiveForeground": "#000",
-    "titleBar.activeForeground": "#000",
+    "statusBar.background": "#82a3ff",
+    "titleBar.activeBackground": "#82a3ff",
+    "titleBar.inactiveBackground": "#82a3ff99",
+    "statusBar.foreground": "#15202b",
+    "titleBar.inactiveForeground": "#15202b99",
+    "titleBar.activeForeground": "#15202b",
+    "activityBar.activeBackground": "#b5c9ff",
+    "activityBar.activeBorder": "#ff4073",
+    "activityBar.background": "#b5c9ff",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#ff4073",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#4f7dff"
   },
   "editor.tokenColorCustomizations": {
     "[Monokai Dimmed]": {
@@ -62,4 +70,5 @@
     "italic": false
   }
 ],
+"peacock.color": "#82A3FF",
 }
