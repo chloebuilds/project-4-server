@@ -7,7 +7,10 @@ import jwt
 User = get_user_model()
 
 class JWTAuthentication(BasicAuthentication):
+<<<<<<< HEAD
 
+=======
+>>>>>>> development
     def authenticate(self, request):
         header = request.headers.get('Authorization')
         if not header:
@@ -24,5 +27,10 @@ class JWTAuthentication(BasicAuthentication):
             raise PermissionDenied({'detail': 'Invalid Token'})
         except User.DoesNotExist:
             raise PermissionDenied({'detail': 'User Not Found'})
+<<<<<<< HEAD
 
         return (user, token)
+=======
+            
+        return (user, token)
+>>>>>>> development

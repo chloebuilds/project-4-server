@@ -1,0 +1,20 @@
+[
+{
+  "model": "sprints.sprint",
+  "pk": 1,
+  "fields": {
+    "sprint_name": "Chloe's Sprint"
+  }
+},
+{
+  "model": "sprints.sprintgoal",
+  "pk": 1,
+  "fields": {
+    "goal_name": "Go for a walk",
+    "start_date": "2021-06-11",
+    "end_date": "2021-06-14",
+    "goal_description": "10000 steps",
+    "sprint": 1
+  }
+}
+]
