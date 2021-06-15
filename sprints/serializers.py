@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import SprintGoal, SprintHabit, DailyToDo, Sprint, Mood
+from .models import SprintGoal, SprintHabit, DailyToDo, Sprint, Mood, DailyGratitude, WeeklyIntention, Energy
 
 
 #! DAILY SERIALIZERS
@@ -10,13 +10,28 @@ class DailyToDoSerializer(serializers.ModelSerializer):
         model = DailyToDo
         fields = '__all__'
 
+
 class MoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mood
         fields = '__all__'
 
+class GratitudeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DailyGratitude
+        fields = '__all__'
+
+class EnergySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Energy
+        fields = '__all__'
+
 #! WEEKLY SERIALIZERS
 
+class IntentionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WeeklyIntention
+        fields = '__all__'
 #! SPRINT-LENGTH SERIALIZERS
 
 class SprintHabitSerializer(serializers.ModelSerializer): 
@@ -38,5 +53,6 @@ class SprintSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PopulatedSprintSerializer(SprintSerializer):
-    SprintGoal = SprintSerializer(many=True)
-    Mood = SprintSerializer(many=True)
+    SprintGoal = SprintGoalSerializer(many=True)
+    Mood = MoodSerializer(many=True)
+    Energy = EnergySerializer(many=True)

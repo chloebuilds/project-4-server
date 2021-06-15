@@ -1,0 +1,31 @@
+# REGISTER A NEW USER
+POST http://localhost:8000/api/auth/register/
+Content-Type: application/json
+
+{
+  "name": "Chloe",
+  "username": "Chloe",
+  "email": "chloe@email.com",
+  "password": "password",
+  "passwordConfirmation": "password",
+  "avatar": "image.jpg"
+}
+
+###
+
+# LOGIN A USER
+POST http://localhost:8000/api/auth/login/
+Content-Type: application/json
+
+{
+  "email": "chloe@email.com",
+  "password": "password"
+}
+
+### ADD A NEW SPRINT
+
+
+### ADD A WEEKLY INTENTION
+
+
+### ADD DAILY GRATITUDE
