@@ -103,7 +103,7 @@ class IntentionView(APIView):
             return Response(serialized_intention.data, status=status.HTTP_201_CREATED)
         return Response(serialized_intention.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
     #TODO def put(self, request, sprint_pk):
-        #TODO intention_to_update = self.intention
+    #TODO intention_to_update = self.intention
     #UPDATE AN INTENTION
     #DELETE AN INTENTION
 
