@@ -2,13 +2,13 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from datetime import date, timedelta
+
 
 from .models import Sprint
-# , SprintGoal, Mood
-from .serializers import SprintSerializer
-# , SprintGoalSerializer, MoodSerializer
+from .serializers import SprintSerializer, SprintGoalSerializer, MoodSerializer, EnergySerializer 
 
-# Create your views here.
+
 class SprintView(APIView):
     def get(self, _request):
         """Handle get requests on /sprints/ - index function"""
@@ -27,21 +27,31 @@ class SprintView(APIView):
             return Response(new_sprint.errors, status=status.HTTP_201_CREATED)
         return Response(new_sprint.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
-# class SprintGoalView(APIView):
-#     def post(self, request, sprint_pk):
-#         request.data['sprint'] = sprint_pk
-#         serialized_sprint_goal = SprintGoalSerializer(data=request.data)
-#         if serialized_sprint_goal.is_valid():
-#             serialized_sprint_goal.save()
-#             return Response(serialized_sprint_goal.data, status=status.HTTP_201_CREATED)
-#         return Response(serialized_sprint_goal.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+class SprintGoalView(APIView):
+    def post(self, request, sprint_pk):
+        request.data['sprint'] = sprint_pk
+        request.data["end_date"] = date.today() + timedelta(days=27)
+        serialized_sprint_goal = SprintGoalSerializer(data=request.data)
+        if serialized_sprint_goal.is_valid():
+            serialized_sprint_goal.save()
+            return Response(serialized_sprint_goal.data, status=status.HTTP_201_CREATED)
+        return Response(serialized_sprint_goal.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 
-# class MoodView(APIView):
-#     def post(self, request, sprint_pk):
-#         request.data['sprint'] = sprint_pk
-#         serialized_mood = MoodSerializer(data=request.data)
-#         if serialized_mood.is_valid():
-#             serialized_mood.save()
-#             return Response(serialized_mood.data, status=status.HTTP_201_CREATED)
-#         return Response(serialized_mood.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+class MoodView(APIView):
+    def post(self, request, sprint_pk):
+        request.data['sprint'] = sprint_pk
+        serialized_mood = MoodSerializer(data=request.data)
+        if serialized_mood.is_valid():
+            serialized_mood.save()
+            return Response(serialized_mood.data, status=status.HTTP_201_CREATED)
+        return Response(serialized_mood.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+class EnergyView(APIView):
+    def post(self, request, sprint_pk):
+        request.data['sprint'] = sprint_pk
+        serialized_energy = EnergySerializer(data=request.data)
+        if serialized_energy.is_valid():
+            serialized_energy.save()
+            return Response(serialized_energy.data, status=status.HTTP_201_CREATED)
+        return Response(serialized_energy.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)

@@ -1,18 +1,23 @@
 from rest_framework import serializers
-from .models import Sprint
-# Mood, SprintGoal, 
+from .models import Sprint, Mood, SprintGoal, Energy
 
-# class MoodSerializer(serializers.ModelSerializer):
+class EnergySerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = Mood
-#         fields = '__all__'
+    class Meta:
+        model = Energy
+        fields = '__all__'
 
-# class SprintGoalSerializer(serializers.ModelSerializer):
+class MoodSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = SprintGoal
-#         fields = '__all__'
+    class Meta:
+        model = Mood
+        fields = '__all__'
+
+class SprintGoalSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SprintGoal
+        fields = '__all__'
 
 class SprintSerializer(serializers.ModelSerializer):
 
@@ -20,7 +25,8 @@ class SprintSerializer(serializers.ModelSerializer):
         model = Sprint
         fields = '__all__'
 
-# class PopulatedSprintSerializer(SprintSerializer):
+class PopulatedSprintSerializer(SprintSerializer):
 
-#     SprintGoal = SprintSerializer(many=True)
-#     Mood = SprintSerializer(many=True)
+    SprintGoal = SprintGoalSerializer(many=True)
+    Mood = MoodSerializer(many=True)
+    Energy = EnergySerializer(many=True)

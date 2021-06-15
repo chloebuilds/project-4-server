@@ -1,0 +1,16 @@
+# @sprintId =
+
+###
+
+GET http://localhost:8000/api/sprints/
+
+###
+
+POST http://localhost:8000/api/sprints/1/sprint-goals/
+Content-Type: application/json
+
+{
+  "goalName": "extra goal",
+  "goalDescription": "lalala"
+
+} 
