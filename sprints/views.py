@@ -2,29 +2,57 @@ from datetime import date, timedelta
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.exceptions import NotFound
 
 from .models import SprintGoal, SprintHabit, DailyToDo, Sprint, Mood
-from .serializers import DailyToDoSerializer, MoodSerializer, SprintHabitSerializer, SprintGoalSerializer, SprintSerializer, EnergySerializer, IntentionSerializer, GratitudeSerializer
+from .serializers import DailyToDoSerializer, MoodSerializer,  EnergySerializer, GratitudeSerializer 
+from .serializers import IntentionSerializer
+from .serializers import SprintHabitSerializer, SprintGoalSerializer, SprintSerializer, PopulatedSprintSerializer
 
 #! SPRINT VIEW
 class SprintView(APIView):
-    #POST A SPRINT
+    # GET ALL SPRINT
     def get(self, _request):
-        """Handle get requests on /sprints/ - index function"""
-        # Get all sprints from the database
         sprints = Sprint.objects.all()
         print(sprints)
-        # Serialize the data into JSON using the serializer.
-        # Note the kwarg many=True which is necessary for sending back multiple objects.
         serialized_sprints = SprintSerializer(sprints, many=True)
         return Response(serialized_sprints.data, status=status.HTTP_200_OK)
-
+    
+    #POST A SPRINT
     def post(self, request):
+        request.data["end_date"] = date.today() + timedelta(days=27)
         new_sprint = SprintSerializer(data=request.data)
         if new_sprint.is_valid():
             new_sprint.save()
             return Response(new_sprint.errors, status=status.HTTP_201_CREATED)
         return Response(new_sprint.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+class SprintDetailView(APIView):
+
+    def get_sprint(self, pk):
+        try:
+            return Sprint.objects.get(pk=pk)
+        except Sprint.DoesNotExist:
+            raise NotFound()
+
+    def get(self, _request, pk):
+        sprint = self.get_sprint(pk=pk)
+        serialized_sprint = SprintSerializer(sprint)
+        return Response(serialized_sprint.data, status=status.HTTP_200_OK)
+
+    def put(self, request, pk):
+        sprint_to_update = self.get_sprint(pk=pk)
+        updated_sprint = SprintSerializer(sprint_to_update, data=request.data)
+        if updated_sprint.is_valid():
+            updated_sprint.save()
+            return Response(updated_sprint.data, status=status.HTTP_202_ACCEPTED)
+        return Response(updated_sprint.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        
+    def delete(self, _request, pk):
+        sprint_to_delete = self.get_sprint(pk=pk)
+        sprint_to_delete.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
   
 #! DAILY VIEWS
 #* Daily To-Do 
@@ -102,7 +130,7 @@ class IntentionView(APIView):
             serialized_intention.save()
             return Response(serialized_intention.data, status=status.HTTP_201_CREATED)
         return Response(serialized_intention.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-    #TODO def put(self, request, sprint_pk):
+    #TODO def put(self, request, sprint_pk)
     #TODO intention_to_update = self.intention
     #UPDATE AN INTENTION
     #DELETE AN INTENTION
