@@ -3,14 +3,16 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import SprintGoal, SprintHabit, DailyToDo, Sprint, Mood
-from .serializers import DailyToDoSerializer, MoodSerializer, SprintHabitSerializer, SprintGoalSerializer, SprintSerializer, EnergySerializer, IntentionSerializer, GratitudeSerializer
 
-#! SPRINT VIEW
+from .models import DailyToDo, Sprint
+from .serializers import DailyToDoSerializer, MoodSerializer,  EnergySerializer, GratitudeSerializer 
+from .serializers import IntentionSerializer
+from .serializers import SprintHabitSerializer, SprintGoalSerializer, SprintSerializer 
+
+#! SPRINT LIST VIEW // CHANGE THIS //
 class SprintView(APIView):
-    #POST A SPRINT
+    #GET ALL SPRINTS
     def get(self, _request):
-        """Handle get requests on /sprints/ - index function"""
         # Get all sprints from the database
         sprints = Sprint.objects.all()
         print(sprints)
@@ -18,26 +20,34 @@ class SprintView(APIView):
         # Note the kwarg many=True which is necessary for sending back multiple objects.
         serialized_sprints = SprintSerializer(sprints, many=True)
         return Response(serialized_sprints.data, status=status.HTTP_200_OK)
-
+    #POST A SPRINT
     def post(self, request):
         new_sprint = SprintSerializer(data=request.data)
         if new_sprint.is_valid():
             new_sprint.save()
             return Response(new_sprint.errors, status=status.HTTP_201_CREATED)
         return Response(new_sprint.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-  
+    #DELETE A SPRINT
+#! SPRINT VIEW 
+
 #! DAILY VIEWS
 #* Daily To-Do 
-class DailyToDoListView(APIView):   
+class DailyToDoListView(APIView):  
+    #GET ALL TO-DOs
+    def get(self, _request):
+        all_to_dos = DailyToDo.objects.all()
+        serialized_all_to_dos = DailyToDoSerializer(all_to_dos, many=True)
+        return Response(serialized_all_to_dos.data, status=status.HTTP_200_OK)
     #POST A TO-DO 
     def post(self, request, sprint_pk):
         request.data['sprint'] = sprint_pk
-        request.data["end_date"] = datetime.date.today() + timedelta(days=0)
+        request.data["finishes_at"] = date.today() + timedelta(days=0)
         serialized_to_do = DailyToDoSerializer(data = request.data)
         if serialized_to_do.is_valid():
             serialized_to_do.save()
             return Response(serialized_to_do.data, status=status.HTTP_201_CREATED)
         return Response(serialized_to_do.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+class DailyToDoDetailView(APIView):     
     #DELETE A TO-DO
     def delete(self, _request, _sprint_pk, to_do_pk):
         # try:
@@ -77,7 +87,7 @@ class EnergyView(APIView):
             serialized_energy.save()
             return Response(serialized_energy.data, status=status.HTTP_201_CREATED)
         return Response(serialized_energy.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-#DELETE ENERGY LEVEL
+    #DELETE ENERGY LEVEL
 
 #* Daily Gratitude
 class GratitudeView(APIView):
@@ -89,7 +99,7 @@ class GratitudeView(APIView):
             serialized_gratitude.save()
             return Response(serialized_gratitude.data, status=status.HTTP_201_CREATED)
         return Response(serialized_gratitude.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-#DELETE GRATITUDE 
+    #DELETE GRATITUDE 
 
 #! WEEKLY VIEWS
 #* Weekly Intentions
@@ -109,8 +119,18 @@ class IntentionView(APIView):
 
 #! SPRINT-LENGTH VIEWS
 #* Sprint Habits
-#POST A HABIT
-#DELETE A HABIT
+class SprintHabitView(APIView):
+    #POST A HABIT
+    def post(self, request, sprint_pk):
+        request.data['sprint'] = sprint_pk
+        request.data["end_date"] = date.today() + timedelta(days=27)
+        serialized_sprint_habit = SprintHabitSerializer(data=request.data)
+        if serialized_sprint_habit.is_valid():
+            serialized_sprint_habit.save()
+            return Response(serialized_sprint_habit.data, status=status.HTTP_201_CREATED)
+        return Response(serialized_sprint_habit.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+    #DELETE A HABIT
+
 #* Sprint Goals
 class SprintGoalView(APIView):
     #POST A GOAL

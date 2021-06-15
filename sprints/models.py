@@ -82,13 +82,18 @@ class WeeklyIntention(models.Model):
 #! SPRINT-LENGTH MODELS
 #* Sprint Habits
 class SprintHabit(models.Model):
-    habit_item = models.CharField(max_length=50)
+    habit_name = models.CharField(max_length=50)
+    start_date = models.DateTimeField(auto_now_add=True)
+    end_date = models.DateField()
     habit_description = models.CharField(max_length=250)
     isDone = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-
+    sprint = models.ForeignKey(
+        Sprint,
+        related_name='sprint_habits',
+        on_delete=models.CASCADE
+    )
     def __str__(self):
-        return f'Habit: {self.habit_item}'
+        return f"{self.habit_name}"
 
 #* Sprint Goals
 class SprintGoal(models.Model):
@@ -96,6 +101,7 @@ class SprintGoal(models.Model):
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateField()
     goal_description = models.CharField(max_length=250)
+    isDone = models.BooleanField(default=False)
     sprint = models.ForeignKey(
         Sprint,
         related_name='sprint_goals',
