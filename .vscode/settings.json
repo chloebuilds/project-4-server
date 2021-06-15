@@ -1,4 +1,65 @@
 {
   "python.pythonPath": "/Users/alaraayan/.local/share/virtualenvs/server-JIVkFiM9/bin/python",
-  "python.linting.pylintEnabled": true
+  "python.linting.pylintEnabled": true,
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#82A3FF",
+    "titleBar.activeBackground": "#82A3FF",
+    "titleBar.inactiveBackground": "#82A3FF",
+    "statusBar.foreground": "#000",
+    "titleBar.inactiveForeground": "#000",
+    "titleBar.activeForeground": "#000",
+  },
+  "editor.tokenColorCustomizations": {
+    "[Monokai Dimmed]": {
+        "comments": "#d3934b",
+    }
+},  
+"better-comments.tags": [
+
+  {
+    "tag": "!",
+    "color": "#d45474",
+    "strikethrough": false,
+    "underline": false,
+    "backgroundColor": "transparent",
+    "bold": true,
+    "italic": false
+  },
+  {
+    "tag": "?",
+    "color": "#407cb4",
+    "strikethrough": false,
+    "underline": false,
+    "backgroundColor": "transparent",
+    "bold": false,
+    "italic": false
+  },
+  {
+    "tag": "//",
+    "color": "#474747",
+    "strikethrough": true,
+    "underline": false,
+    "backgroundColor": "transparent",
+    "bold": false,
+    "italic": false
+  },
+  {
+    "tag": "todo",
+    "color": "#e98c8c",
+    "strikethrough": false,
+    "underline": false,
+    "backgroundColor": "transparent",
+    "bold": false,
+    "italic": false
+  },
+  {
+    "tag": "*",
+    "color": "#76aa9f",
+    "strikethrough": false,
+    "underline": true,
+    "backgroundColor": "transparent",
+    "bold": false,
+    "italic": false
+  }
+],
 }
