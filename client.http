@@ -1,6 +1,33 @@
 # @sprintId =
 
 ###
+# GET ALL SPRINTS
+GET http://localhost:8000/api/sprints/
+
+###
+# GET ONE SPRINT
+GET http://localhost:8000/api/sprints/2/
+
+###
+# POST A NEW SPRINT
+POST http://localhost:8000/api/sprints/
+Content-Type: application/json
+
+{
+  "sprintName": "extra goal"
+} 
+
+###
+
+POST http://localhost:8000/api/sprints/1/sprint-goals/
+Content-Type: application/json
+
+{
+  "goalName": "extra goal",
+  "goalDescription": "lalala"
+} 
+
+### 
 
 # REGISTER A NEW USER
 POST http://localhost:8000/api/auth/register/
