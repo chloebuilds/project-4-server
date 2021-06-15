@@ -1,4 +1,5 @@
 # @sprintId =
+@userId = 4
 
 ###
 # GET ALL SPRINTS
@@ -52,6 +53,11 @@ Content-Type: application/json
   "email": "chloe@email.com",
   "password": "password"
 }
+
+###
+
+# GET USERS PROFILE
+GET http://localhost:8000/api/auth/profile/{{userId}}
 
 ###
 
