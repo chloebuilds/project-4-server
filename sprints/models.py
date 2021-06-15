@@ -1,14 +1,12 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-
-
 #! SPRINT MODEL
-
 class Sprint(models.Model):
     sprint_name = models.CharField(max_length=50)
     start_date = models.DateTimeField(auto_now_add=True)
-    # end_date = models.DateField()
+    end_date = models.DateField()
+
     def __str__(self):
         return f"{self.sprint_name}"
 
@@ -19,6 +17,7 @@ class DailyToDo(models.Model):
     to_do_item = models.CharField(max_length=50, blank = True, null = True, unique = False)
     isDone = models.BooleanField(default=False)
     start_date = models.DateTimeField(auto_now_add=True)
+    end_date = models.DateField()
     sprint = models.ForeignKey(
         Sprint,
         related_name='daily_to_do',
