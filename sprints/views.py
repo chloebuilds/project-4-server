@@ -32,7 +32,7 @@ class DailyToDoListView(APIView):
     #POST A TO-DO 
     def post(self, request, sprint_pk):
         request.data['sprint'] = sprint_pk
-        request.data["end_date"] = datetime.date.today() + timedelta(days=0)
+        request.data["end_date"] = date.today() + timedelta(days=0)
         serialized_to_do = DailyToDoSerializer(data = request.data)
         if serialized_to_do.is_valid():
             serialized_to_do.save()
