@@ -77,6 +77,7 @@ class Migration(migrations.Migration):
                 ('isDone', models.BooleanField(default=False)),
                 ('start_date', models.DateTimeField(auto_now_add=True)),
                 ('end_date', models.DateField()),
+                ('end_date', models.DateField()),
                 ('sprint', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='daily_to_do', to='sprints.sprint')),
             ],
         ),

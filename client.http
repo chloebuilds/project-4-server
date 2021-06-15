@@ -1,7 +1,7 @@
 # @sprintId =
 
 ###
-# GET ALL SPRINT
+# GET ALL SPRINTS
 GET http://localhost:8000/api/sprints/
 
 ###
@@ -53,10 +53,61 @@ Content-Type: application/json
   "password": "password"
 }
 
-### ADD A NEW SPRINT
+###
+
+# GET ALL SPRINTS
+GET http://localhost:8000/api/sprints/
+
+###
+
+
+# POST A SPRINT GOAL
+POST http://localhost:8000/api/sprints/1/sprint-goals/
+Content-Type: application/json
+
+{
+  "goalName": "extra goal",
+  "goalDescription": "lalala"
+
+} 
+###
+# DELETE A SPRINT GOAL
+
+###
+
+# POST A SPRINT HABIT
+POST http://localhost:8000/api/sprints/1/sprint-habits/
+Content-Type: application/json
+
+{
+  "goalName": "extra goal",
+  "goalDescription": "lalala"
+
+} 
+###
+# DELETE A SPRINT HABIT
+
+
+
+
+
 
 
 ### ADD A WEEKLY INTENTION
 
+### 
+# GET ALL DAILY TO-DOs
+GET http://localhost:8000/api/sprints/daily-to-dos/
+
+### 
+# ADD DAILY TO-DO
+POST http://localhost:8000/api/sprints/1/daily-to-dos/1
+Content-Type: application/json
+
+{
+  "toDoItem": "extra goal"
+} 
+### 
+# DELETE DAILY TO-DO
 
 ### ADD DAILY GRATITUDE
