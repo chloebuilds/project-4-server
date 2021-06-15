@@ -1,14 +1,6 @@
 {
   "python.pythonPath": "/Users/elsaguibert/.local/share/virtualenvs/server-Nr5nk5hv/bin/python",
   "python.linting.pylintEnabled": true,
-  "workbench.colorCustomizations": {
-    "statusBar.background": "#82A3FF",
-    "titleBar.activeBackground": "#82A3FF",
-    "titleBar.inactiveBackground": "#82A3FF",
-    "statusBar.foreground": "#000",
-    "titleBar.inactiveForeground": "#000",
-    "titleBar.activeForeground": "#000",
-  },
   "editor.tokenColorCustomizations": {
     "[Monokai Dimmed]": {
         "comments": "#d3934b",
