@@ -1,3 +1,4 @@
+@userId = 
 @token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImV4cCI6MTYyNDQ0MzIxMn0.SlIAiwvh-nAutrZY88Qlvty8LBUqtmzpEr26VlS43G0
 @sprintId = 3
 @goalId = 5
@@ -34,6 +35,10 @@ Content-Type: application/json
   "email": "kevin@email.com",
   "password": "password"
 }
+
+###
+# GET A USER'S PROFILE
+GET http://localhost:8000/api/auth/profile/{{userId}}
 
 ######################################### SPRINT REQUESTS ###############################################
 
@@ -168,6 +173,7 @@ Content-Type: application/json
   "weeklyIntention": "We will get this project done"
 
 } 
+
 
 ###
 # DELETE A WEEKLY INTENTION

@@ -15,6 +15,7 @@ from django.conf import settings
 import jwt
 
 from .serializers import UserSerializer
+from .populated import PopulatedUserSerializer
 
 User = get_user_model()
 
@@ -68,15 +69,15 @@ class LoginView(APIView):
         # Send back a positive response if login is OK
         return Response({"token": token, "message": f"Welcome back, {user_to_login.username}"})
 
-# We will use this to get a user's profile with their favorites populated
-# class ProfileView(APIView):
-#     def get(self, _request, pk):
-#         try:
-#             # Find the user
-#             user_to_show = User.objects.get(pk=pk)
-#             # Serialize the user using the dedicated PopulatedUserSerializer
-#             serialized_user = PopulatedUserSerializer(user_to_show)
-#             # Return a 200 with the use
-#             return Response(serialized_user.data, status=status.HTTP_200_OK)
-#         except User.DoesNotExist:
-#             raise NotFound()
+# We will use this to get a user's profile for the dashboard
+class ProfileView(APIView):
+    def get(self, _request, pk):
+        try:
+            # Find the user
+            user_to_show = User.objects.get(pk=pk)
+            # Serialize the user using the dedicated PopulatedUserSerializer
+            serialized_user = PopulatedUserSerializer(user_to_show)
+            # Return a 200 with the use
+            return Response(serialized_user.data, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            raise NotFound()

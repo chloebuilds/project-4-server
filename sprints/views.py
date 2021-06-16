@@ -3,7 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import NotFound
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
+# from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from .models import Sprint, SprintGoal, SprintHabit, DailyToDo,  DailyMood, DailyEnergy, DailyGratitude, WeeklyIntention
 from .serializers import SprintHabitSerializer, SprintGoalSerializer 
