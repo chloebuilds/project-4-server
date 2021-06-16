@@ -51,7 +51,6 @@ PUT http://localhost:8000/api/auth/profile/{{userId}}/reset/
 # GET ALL SPRINTS
 GET http://localhost:8000/api/sprints/
 
-
 ###
 # POST A NEW SPRINT
 POST http://localhost:8000/api/sprints/
@@ -66,7 +65,6 @@ Content-Type: application/json
 # GET ONE SPRINT
 GET http://localhost:8000/api/sprints/{{sprintId}}/
 
-
 ###
 # DELETE A SPRINT
 DELETE http://localhost:8000/api/sprints/{{sprintId}}/
@@ -78,6 +76,7 @@ Content-Type: application/json
 PUT http://localhost:8000/api/sprints/{{sprintId}}/
 
 Content-Type: application/json
+# Authorization: Bearer {{token}}
 
 {
   "sprintName": "alara hates sprinting"
@@ -96,7 +95,6 @@ Content-Type: application/json
 # POST A SPRINT GOAL
 POST http://localhost:8000/api/sprints/{{sprintId}}/sprint-goals/
 Content-Type: application/json
-
 
 {
   "goalName": "kevin",

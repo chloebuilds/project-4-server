@@ -14,7 +14,7 @@ from .serializers import WeeklyIntentionSerializer
 
 
 
-#! SPRINT LIST VIEW // CHANGE THIS //
+#! SPRINT LIST VIEW
 
 class SprintListView(APIView):
     #? permission_classes = (IsAuthenticated, )
@@ -35,7 +35,7 @@ class SprintListView(APIView):
             return Response(new_sprint.data, status=status.HTTP_201_CREATED)
         return Response(new_sprint.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
-#! SPRINT VIEW 
+#! SPRINT DETAIL VIEW 
 
 class SprintDetailView(APIView):
 
