@@ -3,8 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import NotFound
-from rest_framework.permissions import IsAuthenticated
-# from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+#? from rest_framework.permissions import IsAuthenticated
+#? from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from .models import Sprint, SprintGoal, SprintHabit, DailyToDo,  DailyMood, DailyEnergy, DailyGratitude, WeeklyIntention
 from .serializers import SprintHabitSerializer, SprintGoalSerializer 
@@ -17,13 +17,14 @@ from .serializers import WeeklyIntentionSerializer
 #! SPRINT LIST VIEW // CHANGE THIS //
 
 class SprintListView(APIView):
-    permission_classes = (IsAuthenticated, )
+    #? permission_classes = (IsAuthenticated, )
     #GET ALL SPRINTS
     def get(self, _request):
         # Get all sprints from the database
         sprints = Sprint.objects.all()
         serialized_sprints = PopulatedSprintSerializer(sprints, many=True)
         return Response(serialized_sprints.data, status=status.HTTP_200_OK)
+        
     #POST A SPRINT
     def post(self, request):
         request.data["end_date"] = date.today() + timedelta(days=27)
@@ -38,7 +39,7 @@ class SprintListView(APIView):
 
 class SprintDetailView(APIView):
 
-    permission_classes = (IsAuthenticated, )
+    #? permission_classes = (IsAuthenticated, )
 
     #GET A SINGLE SPRINT
     def get_sprint(self, pk):
@@ -53,6 +54,8 @@ class SprintDetailView(APIView):
     #UPDATE A SPRINT
     def put(self, request, pk):
         sprint_to_update = self.get_sprint(pk=pk)
+        request.data['owner'] = request.user.id
+        request.data['end_date'] = Sprint.objects.get(pk=pk).end_date
         updated_sprint = SprintSerializer(sprint_to_update, data=request.data)
         if updated_sprint.is_valid():
             updated_sprint.save()
@@ -70,7 +73,7 @@ class SprintDetailView(APIView):
 #* Daily To-Do 
 class DailyToDoListView(APIView):  
     #GET ALL TO-DOs
-    def get(self, _request):
+    def get(self, _request, sprint_pk):
         all_to_dos = DailyToDo.objects.all()
         serialized_all_to_dos = DailyToDoSerializer(all_to_dos, many=True)
         return Response(serialized_all_to_dos.data, status=status.HTTP_200_OK)
@@ -85,14 +88,17 @@ class DailyToDoListView(APIView):
         return Response(serialized_to_do.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 class DailyToDoDetailView(APIView):     
     #DELETE A TO-DO
-    def delete(self, _request, _sprint_pk, to_do_pk):
+    def delete(self, _request, sprint_pk, to_do_pk):
         # try:
         to_do_to_delete = DailyToDo.objects.get(pk=to_do_pk)
         to_do_to_delete.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     #UPDATE A TO-DO
-    def put(self, request, to_do_pk):
+    def put(self, request, sprint_pk, to_do_pk):
         to_do_to_update = DailyToDo.objects.get(pk=to_do_pk)
+        request.data['sprint'] = sprint_pk
+        request.data['owner'] = request.user.id
+        request.data['end_date'] = DailyToDo.objects.get(pk=to_do_pk).end_date
         updated_to_do = DailyToDoSerializer(to_do_to_update, data=request.data)
         if updated_to_do.is_valid():
             updated_to_do.save()
@@ -102,7 +108,7 @@ class DailyToDoDetailView(APIView):
 #* Daily Mood
 class DailyMoodListView(APIView):
     #GET ALL MOODS
-    def get(self, _request):
+    def get(self, _request, sprint_pk):
         all_moods = DailyMood.objects.all()
         serialized_moods = DailyMoodSerializer(all_moods, many=True)
         return Response(serialized_moods.data, status=status.HTTP_200_OK)
@@ -117,7 +123,7 @@ class DailyMoodListView(APIView):
         return Response(serialized_mood.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 class DailyMoodDetailView(APIView): 
     #DELETE A MOOD
-    def delete(self, _request, _sprint_pk, mood_pk):
+    def delete(self, _request, sprint_pk, mood_pk):
         mood_to_delete = DailyMood.objects.get(pk=mood_pk)
         mood_to_delete.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -125,7 +131,7 @@ class DailyMoodDetailView(APIView):
 #* Daily Energy Level
 class DailyEnergyListView(APIView):
     #GET ALL ENERGY LEVELS
-    def get(self, _request):
+    def get(self, _request, sprint_pk):
         all_energy_levels = DailyEnergy.objects.all()
         serialized_energy_levels = DailyEnergySerializer(all_energy_levels, many=True)
         return Response(serialized_energy_levels.data, status=status.HTTP_200_OK)
@@ -140,13 +146,16 @@ class DailyEnergyListView(APIView):
         return Response(serialized_energy.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 class DailyEnergyDetailView(APIView):
     #DELETE ENERGY LEVEL
-    def delete(self, _request, _sprint_pk, energy_level_pk):
+    def delete(self, _request, sprint_pk, energy_level_pk):
         energy_level_to_delete = DailyEnergy.objects.get(pk=energy_level_pk)
         energy_level_to_delete.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     #UPDATE ENERGY LEVEL
-    def put(self, request, energy_level_pk):
+    def put(self, request, sprint_pk, energy_level_pk):
         energy_level_to_update = DailyEnergy.objects.get(pk=energy_level_pk)
+        request.data['sprint'] = sprint_pk
+        request.data['owner'] = request.user.id
+        request.data['end_date'] = DailyEnergy.objects.get(pk=energy_level_pk).end_date
         updated_energy_level = DailyEnergySerializer(energy_level_to_update, data=request.data)
         if updated_energy_level.is_valid():
             updated_energy_level.save()
@@ -156,7 +165,7 @@ class DailyEnergyDetailView(APIView):
 #* Daily Gratitude
 class DailyGratitudeListView(APIView):
     #GET ALL GRATITUDES
-    def get(self, _request):
+    def get(self, _request, sprint_pk):
         all_gratitudes = DailyGratitude.objects.all()
         serialized_gratitudes = DailyGratitudeSerializer (all_gratitudes, many=True)
         return Response(serialized_gratitudes.data, status=status.HTTP_200_OK)
@@ -171,13 +180,16 @@ class DailyGratitudeListView(APIView):
         return Response(serialized_gratitude.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 class DailyGratitudeDetailView(APIView):
     #DELETE GRATITUDE 
-    def delete(self, _request, _sprint_pk, gratitude_pk):
+    def delete(self, _request, sprint_pk, gratitude_pk):
         gratitude_to_delete = DailyGratitude.objects.get(pk=gratitude_pk)
         gratitude_to_delete.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     #UPDATE GRATITUDE 
-    def put(self, request, gratitude_pk):
+    def put(self, request, sprint_pk, gratitude_pk):
         gratitude_to_update = DailyGratitude.objects.get(pk=gratitude_pk)
+        request.data['sprint'] = sprint_pk
+        request.data['owner'] = request.user.id
+        request.data['end_date'] = DailyGratitude.objects.get(pk=gratitude_pk).end_date
         updated_gratitude = DailyGratitudeSerializer(gratitude_to_update, data=request.data)
         if updated_gratitude.is_valid():
             updated_gratitude.save()
@@ -189,7 +201,7 @@ class DailyGratitudeDetailView(APIView):
 #* Weekly Intentions
 class WeeklyIntentionListView(APIView):
     #GET ALL INTENTIONS
-    def get(self, _request):
+    def get(self, _request, sprint_pk):
         all_intentions = WeeklyIntention.objects.all()
         serialized_intentions = WeeklyIntentionSerializer (all_intentions, many=True)
         return Response(serialized_intentions.data, status=status.HTTP_200_OK)
@@ -204,13 +216,16 @@ class WeeklyIntentionListView(APIView):
         return Response(serialized_intention.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 class WeeklyIntentionDetailView(APIView):   
     #DELETE  AN INTENTION
-    def delete(self, _request, _sprint_pk, intention_pk):
+    def delete(self, _request, sprint_pk, intention_pk):
         intention_to_delete = WeeklyIntention.objects.get(pk=intention_pk)
         intention_to_delete.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     #UPDATE AN INTENTION
-    def put(self, request, intention_pk):
+    def put(self, request, sprint_pk, intention_pk):
         intention_to_update = WeeklyIntention.objects.get(pk=intention_pk)
+        request.data['sprint'] = sprint_pk
+        request.data['owner'] = request.user.id
+        request.data['end_date'] = WeeklyIntention.objects.get(pk=intention_pk).end_date
         updated_intention = WeeklyIntentionSerializer(intention_to_update, data=request.data)
         if updated_intention.is_valid():
             updated_intention.save()
@@ -222,7 +237,7 @@ class WeeklyIntentionDetailView(APIView):
 #* Sprint Habits
 class SprintHabitListView(APIView):
     #GET ALL HABITS
-    def get(self, _request):
+    def get(self, _request, sprint_pk):
         all_sprint_habits = SprintHabit.objects.all()
         serialized_sprint_habits = SprintHabitSerializer (all_sprint_habits, many=True)
         return Response(serialized_sprint_habits.data, status=status.HTTP_200_OK)
@@ -248,13 +263,16 @@ class SprintHabitDetailView(APIView):
         serialized_sprint_habit = SprintHabitSerializer(sprint_habit)
         return Response(serialized_sprint_habit.data, status=status.HTTP_200_OK)
     #DELETE A HABIT
-    def delete(self, _request, _sprint_pk, sprint_habit_pk):
+    def delete(self, _request, sprint_pk, sprint_habit_pk):
         sprint_habit_to_delete = SprintHabit.objects.get(pk=sprint_habit_pk)
         sprint_habit_to_delete.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     #UPDATE A HABIT
-    def put(self, request, sprint_habit_pk):
+    def put(self, request, sprint_pk, sprint_habit_pk):
         sprint_habit_to_update = SprintHabit.objects.get(pk=sprint_habit_pk)
+        request.data['sprint'] = sprint_pk
+        request.data['owner'] = request.user.id
+        request.data['end_date'] = SprintHabit.objects.get(pk=sprint_habit_pk).end_date
         updated_sprint_habit = SprintHabitSerializer(sprint_habit_to_update, data=request.data)
         if updated_sprint_habit.is_valid():
             updated_sprint_habit.save()
@@ -290,13 +308,16 @@ class SprintGoalDetailView(APIView):
         serialized_sprint_goal = SprintGoalSerializer(sprint_goal)
         return Response(serialized_sprint_goal.data, status=status.HTTP_200_OK)
     #DELETE A GOAL
-    def delete(self, _request, _sprint_pk, sprint_goal_pk):
+    def delete(self, _request, sprint_pk, sprint_goal_pk):
         sprint_goal_to_delete = SprintGoal.objects.get(pk=sprint_goal_pk)
         sprint_goal_to_delete.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     #UPDATE A GOAL
-    def put(self, request, sprint_goal_pk):
+    def put(self, request, sprint_pk, sprint_goal_pk):
         sprint_goal_to_update = SprintGoal.objects.get(pk=sprint_goal_pk)
+        request.data['sprint'] = sprint_pk
+        request.data['owner'] = request.user.id
+        request.data['end_date'] = SprintGoal.objects.get(pk=sprint_goal_pk).end_date
         updated_sprint_goal = SprintGoalSerializer(sprint_goal_to_update, data=request.data)
         if updated_sprint_goal.is_valid():
             updated_sprint_goal.save()

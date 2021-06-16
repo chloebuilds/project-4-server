@@ -13,7 +13,7 @@ class Sprint(models.Model):
         on_delete=models.PROTECT
     )
     def __str__(self):
-        return f'Sprint {self.id} on {self.sprint_name}'
+        return f'Sprint {self.id}: {self.sprint_name}'
 
 
 #! DAILY MODELS
@@ -26,7 +26,8 @@ class DailyToDo(models.Model):
     sprint = models.ForeignKey(
         Sprint,
         related_name='to_dos',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True
     )
     def __str__(self):
         return f'To-Do: {self.to_do_item}'
@@ -39,7 +40,8 @@ class DailyMood(models.Model):
     sprint = models.ForeignKey(
         Sprint,
         related_name='moods',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True
     )
     def __str__(self):
         return f"{self.mood_name}"
@@ -55,6 +57,7 @@ class DailyEnergy(models.Model):
         Sprint,
         related_name='energy_levels',
         on_delete=models.CASCADE,
+        null=True,
         default=1
     )
     def __str__(self):
@@ -69,6 +72,7 @@ class DailyGratitude(models.Model):
             Sprint,
             related_name="daily_gratitudes",
             on_delete=models.PROTECT,
+            null=True
         )
     def __str__(self):
         return f"{self.daily_gratitude}"
@@ -83,6 +87,7 @@ class WeeklyIntention(models.Model):
             Sprint,
             related_name="weekly_intentions",
             on_delete=models.PROTECT,
+            null=True
         )
     def __str__(self):
         return f"{self.weekly_intention}"
@@ -98,7 +103,8 @@ class SprintHabit(models.Model):
     sprint = models.ForeignKey(
         Sprint,
         related_name='sprint_habits',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True
     )
     def __str__(self):
         return f"{self.habit_name}"
@@ -113,7 +119,8 @@ class SprintGoal(models.Model):
     sprint = models.ForeignKey(
         Sprint,
         related_name='sprint_goals',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True
     )
     def __str__(self):
         return f"{self.goal_name}"
