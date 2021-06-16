@@ -6,9 +6,13 @@ class Sprint(models.Model):
     sprint_name = models.CharField(max_length=50)
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateField()
-
+    owner = models.ForeignKey(
+        'jwt_auth.User',
+        related_name='created_sprints',
+        on_delete=models.PROTECT
+    )
     def __str__(self):
-        return f"{self.sprint_name}"
+        return f'Sprint {self.id} on {self.sprint_name}'
 
 
 #! DAILY MODELS
@@ -20,16 +24,17 @@ class DailyToDo(models.Model):
     end_date = models.DateField()
     sprint = models.ForeignKey(
         Sprint,
-        related_name='daily_to_do',
+        related_name='to_dos',
         on_delete=models.CASCADE
     )
     def __str__(self):
         return f'To-Do: {self.to_do_item}'
 
 #* Daily Mood
-class Mood(models.Model):
+class DailyMood(models.Model):
     mood_name = models.CharField(max_length=50)
     start_date = models.DateTimeField(auto_now_add=True)
+    end_date = models.DateField()
     sprint = models.ForeignKey(
         Sprint,
         related_name='moods',
@@ -39,11 +44,12 @@ class Mood(models.Model):
         return f"{self.mood_name}"
 
 #* Daily Energy Level
-class Energy(models.Model):
+class DailyEnergy(models.Model):
     energy_level = models.PositiveIntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(10)]
     )
     start_date = models.DateTimeField(auto_now_add=True)
+    end_date = models.DateField()
     sprint = models.ForeignKey(
         Sprint,
         related_name='energy_levels',
@@ -57,6 +63,7 @@ class Energy(models.Model):
 class DailyGratitude(models.Model):
     daily_gratitude = models.CharField(max_length=200)
     start_date = models.DateTimeField(auto_now_add=True)
+    end_date = models.DateField()
     sprint = models.ForeignKey(
             Sprint,
             related_name="daily_gratitudes",
@@ -70,6 +77,7 @@ class DailyGratitude(models.Model):
 class WeeklyIntention(models.Model):
     weekly_intention = models.CharField(max_length=200)
     start_date = models.DateTimeField(auto_now_add=True)
+    end_date = models.DateField()
     sprint = models.ForeignKey(
             Sprint,
             related_name="weekly_intentions",
@@ -81,7 +89,7 @@ class WeeklyIntention(models.Model):
 #! SPRINT-LENGTH MODELS
 #* Sprint Habits
 class SprintHabit(models.Model):
-    habit_name = models.CharField(max_length=50)
+    habit_name = models.CharField(max_length=50 )
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateField()
     habit_description = models.CharField(max_length=250)
