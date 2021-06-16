@@ -8,6 +8,7 @@ urlpatterns = [
     path('<int:pk>/', SprintDetailView.as_view()),
 
     path('<int:sprint_pk>/sprint-goals/', SprintGoalView.as_view()),
+ 
 
     path('<int:sprint_pk>/sprint-habits/', SprintHabitView.as_view()),
 

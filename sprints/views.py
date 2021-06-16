@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import NotFound
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from .models import SprintGoal, SprintHabit, DailyToDo, Sprint, Mood
 from .serializers import DailyToDoSerializer, MoodSerializer,  EnergySerializer, GratitudeSerializer 
@@ -12,27 +13,33 @@ from .serializers import SprintHabitSerializer, SprintGoalSerializer, SprintSeri
 
 #! SPRINT LIST VIEW // CHANGE THIS //
 class SprintView(APIView):
+
+    permission_classes = (IsAuthenticated, )
+
     #GET ALL SPRINTS
     def get(self, _request):
         # Get all sprints from the database
         sprints = Sprint.objects.all()
-        print(sprints)
-        serialized_sprints = SprintSerializer(sprints, many=True)
+        serialized_sprints = PopulatedSprintSerializer(sprints, many=True)
         return Response(serialized_sprints.data, status=status.HTTP_200_OK)
         
     #POST A SPRINT
     def post(self, request):
         request.data["end_date"] = date.today() + timedelta(days=27)
+        request.data['owner'] = request.user.id
         new_sprint = SprintSerializer(data=request.data)
         if new_sprint.is_valid():
             new_sprint.save()
-            return Response(new_sprint.errors, status=status.HTTP_201_CREATED)
+            return Response(new_sprint.data, status=status.HTTP_201_CREATED)
         return Response(new_sprint.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-   
+
 
 #! SPRINT VIEW 
 
 class SprintDetailView(APIView):
+
+    permission_classes = (IsAuthenticated, )
+
     #GET A SINGLE SPRINT
     def get_sprint(self, pk):
         try:
@@ -42,7 +49,7 @@ class SprintDetailView(APIView):
 
     def get(self, _request, pk):
         sprint = self.get_sprint(pk=pk)
-        serialized_sprint = SprintSerializer(sprint)
+        serialized_sprint = PopulatedSprintSerializer(sprint)
         return Response(serialized_sprint.data, status=status.HTTP_200_OK)
     #EDIT A SPRINT
     def put(self, request, pk):
@@ -162,6 +169,7 @@ class SprintHabitView(APIView):
 
 #* Sprint Goals
 class SprintGoalView(APIView):
+
     #POST A GOAL
     def post(self, request, sprint_pk):
         request.data['sprint'] = sprint_pk
@@ -172,3 +180,4 @@ class SprintGoalView(APIView):
             return Response(serialized_sprint_goal.data, status=status.HTTP_201_CREATED)
         return Response(serialized_sprint_goal.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
     #DELETE A GOAL
+

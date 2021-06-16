@@ -1,113 +1,225 @@
-# @sprintId =
-
-###
-# GET ALL SPRINTS
-GET http://localhost:8000/api/sprints/
-
-###
-# GET ONE SPRINT
-GET http://localhost:8000/api/sprints/2/
-
-###
-# POST A NEW SPRINT
-POST http://localhost:8000/api/sprints/
-Content-Type: application/json
-
-{
-  "sprintName": "extra goal"
-} 
-
-###
-
-POST http://localhost:8000/api/sprints/1/sprint-goals/
-Content-Type: application/json
-
-{
-  "goalName": "extra goal",
-  "goalDescription": "lalala"
-} 
-
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImV4cCI6MTYyNDQ0MzIxMn0.SlIAiwvh-nAutrZY88Qlvty8LBUqtmzpEr26VlS43G0
+@sprintId = 3
+@goalId = 5
+@habitId = 2
+# @intentionId =
+# @toDoId =
+# @moodId =
+# @energyLevelId =
+# @gratitudeId =
+######################################### USER REQUESTS ###############################################
 ### 
-
 # REGISTER A NEW USER
 POST http://localhost:8000/api/auth/register/
 Content-Type: application/json
-
 {
-  "name": "Chloe",
-  "username": "Chloe",
-  "email": "chloe@email.com",
+  "name": "kevin",
+  "username": "kevin",
+  "email": "kevin@email.com",
   "password": "password",
   "passwordConfirmation": "password",
   "avatar": "image.jpg"
 }
-
 ###
-
 # LOGIN A USER
 POST http://localhost:8000/api/auth/login/
 Content-Type: application/json
-
 {
-  "email": "chloe@email.com",
+  "email": "kevin@email.com",
   "password": "password"
 }
-
+######################################### SPRINT REQUESTS ###############################################
 ###
-
 # GET ALL SPRINTS
 GET http://localhost:8000/api/sprints/
-
+Authorization: Bearer {{token}}
 ###
-
-
-# POST A SPRINT GOAL
-POST http://localhost:8000/api/sprints/1/sprint-goals/
+# POST A NEW SPRINT
+POST http://localhost:8000/api/sprints/
+Authorization: Bearer {{token}}
 Content-Type: application/json
-
 {
-  "goalName": "extra goal",
-  "goalDescription": "lalala"
-
+  "sprintName": "alara loves sprinting"
 } 
+###
+# GET ONE SPRINT
+GET http://localhost:8000/api/sprints/{{sprintId}}/
+Authorization: Bearer {{token}}
+###
+# DELETE A SPRINT
+DELETE http://localhost:8000/api/sprints/{{sprintId}}/
+Content-Type: application/json
+###
+# UPDATE A SPRINT
+PUT http://localhost:8000/api/sprints/{{sprintId}}/
+Content-Type: application/json
+{
+  "sprintName": "alara hates sprinting"
+} 
+################################### SPRINT HABIT/GOAL REQUESTS ##########################################
+///////////////// SPRINT GOAL REQUESTS /////////////////
+###
+# GET ALL SPRINT GOALS
+GET http://localhost:8000/api/sprints/{{sprintId}}/sprint-goals/
+Content-Type: application/json
+###
+# POST A SPRINT GOAL
+POST http://localhost:8000/api/sprints/{{sprintId}}/sprint-goals/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+{
+  "goalName": "kevin",
+  "goalDescription": "lalala"
+} 
+###
+# GET A SPRINT GOAL
+GET http://localhost:8000/api/sprints/3/sprint-goals/5/
 ###
 # DELETE A SPRINT GOAL
-
+DELETE http://localhost:8000/api/sprints/{{sprintId}}/sprint-goals/{{goalId}}/
 ###
-
-# POST A SPRINT HABIT
-POST http://localhost:8000/api/sprints/1/sprint-habits/
+# UPDATE A SPRINT GOAL
+PUT http://localhost:8000/api/sprints/{{sprintId}}/sprint-goals/{{goalId}}/
 Content-Type: application/json
-
 {
   "goalName": "extra goal",
   "goalDescription": "lalala"
-
+} 
+///////////////// SPRINT HABIT REQUESTS /////////////////
+###
+# GET ALL SPRINT HABITS
+GET http://localhost:8000/api/sprints/{{sprintId}}/sprint-habits/
+Content-Type: application/json
+###
+# POST A SPRINT HABIT
+POST http://localhost:8000/api/sprints/{{sprintId}}/sprint-habits/
+Content-Type: application/json
+{
+  "habitName": "elsa has a habit",
+  "habitDescription": "lalala"
 } 
 ###
-# DELETE A SPRINT HABIT
-
-
-
-
-
-
-
-### ADD A WEEKLY INTENTION
-
-### 
-# GET ALL DAILY TO-DOs
-GET http://localhost:8000/api/sprints/daily-to-dos/
-
-### 
-# ADD DAILY TO-DO
-POST http://localhost:8000/api/sprints/1/daily-to-dos/1
+# GET A SPRINT HABIT
+GET http://localhost:8000/api/sprints/{{sprintId}}/sprint-habits/{{habitId}}/
 Content-Type: application/json
-
+###
+# DELETE A SPRINT HABIT
+DELETE http://localhost:8000/api/sprints/{{sprintId}}/sprint-habits/{{habitId}}/
+Content-Type: application/json
+###
+# UPDATE A SPRINT HABIT
+POST http://localhost:8000/api/sprints/{{sprintId}}/sprint-habits/{{habitId}}/
+Content-Type: application/json
 {
-  "toDoItem": "extra goal"
+  "habitName": "extra habit",
+  "habitDescription": "lalala"
 } 
-### 
-# DELETE DAILY TO-DO
-
-### ADD DAILY GRATITUDE
+######################################### WEEKLY REQUESTS ###############################################
+###
+# GET ALL WEEKLY INTENTIONS
+GET http://localhost:8000/api/sprints/{{sprintId}}/intentions/
+Content-Type: application/json
+###
+# POST A WEEKLY INTENTION
+POST http://localhost:8000/api/sprints/{{sprintId}}/intentions/
+Content-Type: application/json
+{
+  "weeklyIntention": "We will get this project done"
+} 
+###
+# DELETE A WEEKLY INTENTION
+DELETE http://localhost:8000/api/sprints/{{sprintId}}/intentions/{{intentionId}}/
+Content-Type: application/json
+###
+# UPDATE A WEEKLY INTENTION
+POST http://localhost:8000/api/sprints/{{sprintId}}/intentions/{{intentionId}}/
+Content-Type: application/json
+{
+  "weeklyIntention": "We WILL get this project done"
+} 
+######################################### DAILY REQUESTS ###############################################
+///////////////// TO-DO REQUESTS /////////////////
+###
+# GET ALL TO-DOs
+GET http://localhost:8000/api/sprints/{{sprintId}}/to-dos/
+Content-Type: application/json
+###
+# POST A TO-DO
+POST http://localhost:8000/api/sprints/{{sprintId}}/to-dos/
+Content-Type: application/json
+{
+  "toDoItem": "Finish backend"
+} 
+###
+# DELETE A TO-DO
+DELETE http://localhost:8000/api/sprints/{{sprintId}}/to-dos/{{toDoId}}/
+Content-Type: application/json
+###
+# UPDATE A TO-DO
+POST http://localhost:8000/api/sprints/{{sprintId}}/to-dos/{{toDoId}}/
+Content-Type: application/json
+{
+  "toDoItem": "Start frontend"
+} 
+///////////////// MOOD REQUESTS /////////////////
+###
+# GET ALL TO-DOs
+GET http://localhost:8000/api/sprints/{{sprintId}}/moods/
+Content-Type: application/json
+###
+# POST A TO-DO
+POST http://localhost:8000/api/sprints/{{sprintId}}/moods/
+Content-Type: application/json
+{
+  "moodName": "Kaput"
+} 
+###
+# DELETE A TO-DO
+DELETE http://localhost:8000/api/sprints/{{sprintId}}/moods/{{moodId}}/
+Content-Type: application/json
+///////////// ENERGY LEVEL REQUESTS ////////////
+###
+# GET ALL ENERGY LEVELS
+GET http://localhost:8000/api/sprints/{{sprintId}}/energy-levels/
+Content-Type: application/json
+###
+# POST AN ENERGY LEVEL
+POST http://localhost:8000/api/sprints/{{sprintId}}/energy-levels/
+Content-Type: application/json
+{
+  "energyLevel": 1
+} 
+###
+# DELETE AN ENERGY LEVEL
+DELETE http://localhost:8000/api/sprints/{{sprintId}}/energy-levels/{{energyLevelId}}/
+Content-Type: application/json
+###
+# UPDATE AN ENERGY LEVEL
+POST http://localhost:8000/api/sprints/{{sprintId}}/energy-levels/{{energyLevelId}}/
+Content-Type: application/json
+{
+  "energyLevel": 0
+} 
+////////////// GRATITUDE REQUESTS /////////////
+###
+# GET ALL GRATITUDES
+GET http://localhost:8000/api/sprints/{{sprintId}}/gratitudes/
+Content-Type: application/json
+###
+# POST A GRATITUDE
+POST http://localhost:8000/api/sprints/{{sprintId}}/gratitudes/
+Content-Type: application/json
+{
+  "dailyGratitude": "coffee"
+} 
+###
+# DELETE A GRATITUDE
+DELETE http://localhost:8000/api/sprints/{{sprintId}}/gratitudes/{{gratitudeId}}/
+Content-Type: application/json
+###
+# UPDATE A GRATITUDE
+POST http://localhost:8000/api/sprints/{{sprintId}}/gratitudes/{{gratitudeId}}/
+Content-Type: application/json
+{
+  "dailyGratitude": "Still coffee"
+}

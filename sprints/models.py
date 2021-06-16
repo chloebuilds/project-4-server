@@ -1,3 +1,4 @@
+# from jwt_auth.models import User
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
@@ -6,16 +7,21 @@ class Sprint(models.Model):
     sprint_name = models.CharField(max_length=50)
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateField()
+    owner = models.ForeignKey(
+        'jwt_auth.User',
+        related_name='created_sprints',
+        on_delete=models.PROTECT
+    )
 
     def __str__(self):
-        return f"{self.sprint_name}"
+        return f'Sprint {self.id} on {self.sprint_name}'
 
 
 #! DAILY MODELS
 #* Daily To-Do 
 class DailyToDo(models.Model):
     to_do_item = models.CharField(max_length=50, blank = True, null = True, unique = False)
-    isDone = models.BooleanField(default=False)
+    is_done = models.BooleanField(default=False)
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateField()
     sprint = models.ForeignKey(
@@ -85,7 +91,7 @@ class SprintHabit(models.Model):
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateField()
     habit_description = models.CharField(max_length=250)
-    isDone = models.BooleanField(default=False)
+    is_done = models.BooleanField(default=False)
     sprint = models.ForeignKey(
         Sprint,
         related_name='sprint_habits',
@@ -100,7 +106,7 @@ class SprintGoal(models.Model):
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateField()
     goal_description = models.CharField(max_length=250)
-    isDone = models.BooleanField(default=False)
+    is_done = models.BooleanField(default=False)
     sprint = models.ForeignKey(
         Sprint,
         related_name='sprint_goals',

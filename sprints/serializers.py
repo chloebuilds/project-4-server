@@ -1,8 +1,19 @@
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
+
+
 from .models import SprintGoal, SprintHabit, Sprint
 from .models import WeeklyIntention
 from .models import Energy, DailyToDo, Mood, DailyGratitude
 
+User = get_user_model()
+
+#! USER SERIALIZERS
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'avatar')
 
 #! DAILY SERIALIZERS
 class DailyToDoSerializer(serializers.ModelSerializer): 
@@ -52,6 +63,12 @@ class SprintSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PopulatedSprintSerializer(SprintSerializer):
-    SprintGoal = SprintGoalSerializer(many=True)
-    Mood = MoodSerializer(many=True)
-    Energy = EnergySerializer(many=True)
+    owner = UserSerializer()
+    sprint_goals = SprintGoalSerializer(many=True)
+    moods = MoodSerializer(many=True)
+    energy_levels = EnergySerializer(many=True)
+    daily_to_do = DailyToDoSerializer(many=True)
+    daily_gratitudes = GratitudeSerializer(many=True)
+    weekly_intentions = IntentionSerializer(many=True)
+    sprint_habits = SprintHabitSerializer(many=True)
+
