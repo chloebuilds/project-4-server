@@ -1,14 +1,12 @@
+from datetime import datetime, timedelta
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-
-from datetime import datetime, timedelta
 from rest_framework.exceptions import PermissionDenied
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
+
+from datetime import datetime, date, timedelta
 from django.contrib.auth import get_user_model
 from django.conf import settings
 
@@ -16,6 +14,7 @@ import jwt
 
 from .serializers import UserSerializer
 from .populated import PopulatedUserSerializer
+from sprints.serializers import SprintSerializer
 
 User = get_user_model()
 
@@ -81,3 +80,39 @@ class ProfileView(APIView):
             return Response(serialized_user.data, status=status.HTTP_200_OK)
         except User.DoesNotExist:
             raise NotFound()
+
+class ResetView(APIView):
+    def put(self, _request, pk):
+        user = User.objects.get(pk=pk)
+        sprints = list(user.created_sprints.all())
+
+        current_sprint = None
+        todays_date = date.today()
+
+        # Establish which is the current sprint
+        for sprint in sprints:
+            if sprint.end_date > todays_date:
+                current_sprint = sprint
+
+        # If no current sprint, there user will have to create a new sprint anyway
+        # So nothing to unlink
+        if not current_sprint:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        moods = list(current_sprint.moods.all())
+        energy_levels = list(current_sprint.energy_levels.all())
+        to_dos = list(current_sprint.to_dos.all())
+        daily_gratitudes = list(current_sprint.daily_gratitudes.all())
+        weekly_intentions = list(current_sprint.weekly_intentions.all())
+
+        # Iterate through the goalsets and remove the reference to the current sprint 
+        # if the goal end_date is in the past
+        for goalset in [moods, energy_levels, to_dos, daily_gratitudes, weekly_intentions]:
+            if goalset:
+                for goal in goalset:
+                    if goal.end_date < todays_date:
+                        goal.sprint = None
+                        goal.save()
+        
+        serialized_updated_user = PopulatedUserSerializer(user)
+        return Response(serialized_updated_user.data, status=status.HTTP_200_OK)

@@ -3,7 +3,9 @@
   "model": "sprints.sprint",
   "pk": 1,
   "fields": {
-    "sprint_name": "Chloe's Sprint"
+    "sprint_name": "Chloe's Sprint",
+    "start_date": "2021-06-11",
+    "end_date": "2021-07-08"
   }
 },
 {

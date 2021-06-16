@@ -1,8 +1,17 @@
 from rest_framework import serializers
-from .models import SprintGoal, SprintHabit, Sprint
-from .models import WeeklyIntention
-from .models import Energy, DailyToDo, Mood, DailyGratitude
+from django.contrib.auth import get_user_model
 
+from .models import Sprint, SprintGoal, SprintHabit
+from .models import WeeklyIntention
+from .models import DailyEnergy,  DailyMood, DailyGratitude, DailyToDo
+
+
+#! USER SERIALIZERS
+User = get_user_model()
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'avatar')
 
 #! DAILY SERIALIZERS
 class DailyToDoSerializer(serializers.ModelSerializer): 
@@ -12,23 +21,23 @@ class DailyToDoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class MoodSerializer(serializers.ModelSerializer):
+class DailyMoodSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Mood
+        model = DailyMood
         fields = '__all__'
 
-class GratitudeSerializer(serializers.ModelSerializer):
+class DailyGratitudeSerializer(serializers.ModelSerializer):
     class Meta:
         model = DailyGratitude
         fields = '__all__'
 
-class EnergySerializer(serializers.ModelSerializer):
+class DailyEnergySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Energy
+        model = DailyEnergy
         fields = '__all__'
 
 #! WEEKLY SERIALIZERS
-class IntentionSerializer(serializers.ModelSerializer):
+class WeeklyIntentionSerializer(serializers.ModelSerializer):
     class Meta:
         model = WeeklyIntention
         fields = '__all__'
@@ -50,8 +59,15 @@ class SprintSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sprint
         fields = '__all__'
-
+        
 class PopulatedSprintSerializer(SprintSerializer):
-    SprintGoal = SprintGoalSerializer(many=True)
-    Mood = MoodSerializer(many=True)
-    Energy = EnergySerializer(many=True)
+    owner = UserSerializer()
+    sprint_goals = SprintGoalSerializer(many=True)
+    sprint_habits = SprintHabitSerializer(many=True)
+    weekly_intentions = WeeklyIntentionSerializer(many=True)
+    moods = DailyMoodSerializer(many=True)
+    energy_levels = DailyEnergySerializer(many=True)
+    to_dos = DailyToDoSerializer(many=True)
+    daily_gratitudes = DailyGratitudeSerializer(many=True)
+    
+    
