@@ -1,6 +1,6 @@
-@userId = 
-@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImV4cCI6MTYyNDQ0MzIxMn0.SlIAiwvh-nAutrZY88Qlvty8LBUqtmzpEr26VlS43G0
-@sprintId = 3
+@userId = 1
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsImV4cCI6MTYyNDQ1NjYxMn0.aE0ygBpPnoDmpZ4ZHfq57NqMGeQVosHd2SMt5wzPE_Y
+@sprintId = 5
 @goalId = 5
 @habitId = 2
 # @intentionId =
@@ -17,11 +17,11 @@ POST http://localhost:8000/api/auth/register/
 Content-Type: application/json
 
 {
-  "name": "kevin",
-  "username": "kevin",
-  "email": "kevin@email.com",
-  "password": "password",
-  "passwordConfirmation": "password",
+  "name": "elsa",
+  "username": "elsa",
+  "email": "elsa@email.com",
+  "password": "pass",
+  "passwordConfirmation": "pass",
   "avatar": "image.jpg"
 }
 
@@ -32,8 +32,8 @@ POST http://localhost:8000/api/auth/login/
 Content-Type: application/json
 
 {
-  "email": "kevin@email.com",
-  "password": "password"
+  "email": "elsa@email.com",
+  "password": "pass"
 }
 
 ###
@@ -45,7 +45,7 @@ GET http://localhost:8000/api/auth/profile/{{userId}}
 ###
 # GET ALL SPRINTS
 GET http://localhost:8000/api/sprints/
-Authorization: Bearer {{token}}
+# Authorization: Bearer {{token}}
 
 ###
 # POST A NEW SPRINT
@@ -60,7 +60,7 @@ Content-Type: application/json
 ###
 # GET ONE SPRINT
 GET http://localhost:8000/api/sprints/{{sprintId}}/
-Authorization: Bearer {{token}}
+# Authorization: Bearer {{token}}
 
 ###
 # DELETE A SPRINT
@@ -71,6 +71,7 @@ Content-Type: application/json
 # UPDATE A SPRINT
 PUT http://localhost:8000/api/sprints/{{sprintId}}/
 Content-Type: application/json
+# Authorization: Bearer {{token}}
 
 {
   "sprintName": "alara hates sprinting"
@@ -89,7 +90,7 @@ Content-Type: application/json
 # POST A SPRINT GOAL
 POST http://localhost:8000/api/sprints/{{sprintId}}/sprint-goals/
 Content-Type: application/json
-Authorization: Bearer {{token}}
+# Authorization: Bearer {{token}}
 
 {
   "goalName": "kevin",
@@ -99,7 +100,7 @@ Authorization: Bearer {{token}}
 
 ###
 # GET A SPRINT GOAL
-GET http://localhost:8000/api/sprints/3/sprint-goals/5/
+GET http://localhost:8000/api/sprints/1/sprint-goals/1/
 
 
 ###
@@ -146,7 +147,7 @@ Content-Type: application/json
 
 ###
 # UPDATE A SPRINT HABIT
-POST http://localhost:8000/api/sprints/{{sprintId}}/sprint-habits/{{habitId}}/
+PUT http://localhost:8000/api/sprints/{{sprintId}}/sprint-habits/{{habitId}}/
 Content-Type: application/json
 {
   "habitName": "extra habit",
@@ -202,7 +203,7 @@ Content-Type: application/json
 # POST A TO-DO
 POST http://localhost:8000/api/sprints/{{sprintId}}/to-dos/
 Content-Type: application/json
-Authorization: Bearer {{token}}
+# Authorization: Bearer {{token}}
 {
   "toDoItem": "Finish backend"
 

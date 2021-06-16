@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import NotFound
-from rest_framework.permissions import IsAuthenticated
+# from rest_framework.permissions import IsAuthenticated
 # from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from .models import Sprint, SprintGoal, SprintHabit, DailyToDo,  DailyMood, DailyEnergy, DailyGratitude, WeeklyIntention
@@ -14,10 +14,10 @@ from .serializers import WeeklyIntentionSerializer
 
 
 
-#! SPRINT LIST VIEW // CHANGE THIS //
+#! SPRINT LIST VIEW
 
 class SprintListView(APIView):
-    permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated)
     #GET ALL SPRINTS
     def get(self, _request):
         # Get all sprints from the database
@@ -34,11 +34,11 @@ class SprintListView(APIView):
             return Response(new_sprint.data, status=status.HTTP_201_CREATED)
         return Response(new_sprint.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
-#! SPRINT VIEW 
+#! SPRINT DETAIL VIEW 
 
 class SprintDetailView(APIView):
 
-    permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )
 
     #GET A SINGLE SPRINT
     def get_sprint(self, pk):

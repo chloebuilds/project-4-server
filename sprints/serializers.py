@@ -63,9 +63,11 @@ class SprintSerializer(serializers.ModelSerializer):
 class PopulatedSprintSerializer(SprintSerializer):
     owner = UserSerializer()
     sprint_goals = SprintGoalSerializer(many=True)
+    sprint_habits = SprintHabitSerializer(many=True)
+    weekly_intentions = WeeklyIntentionSerializer(many=True)
     moods = DailyMoodSerializer(many=True)
     energy_levels = DailyEnergySerializer(many=True)
-    daily_to_do = DailyToDoSerializer(many=True)
+    to_dos = DailyToDoSerializer(many=True)
     daily_gratitudes = DailyGratitudeSerializer(many=True)
-    weekly_intentions = WeeklyIntentionSerializer(many=True)
-    sprint_habits = SprintHabitSerializer(many=True)
+    
+    
