@@ -1,13 +1,13 @@
-@userId = 2
-@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsImV4cCI6MTYyNDQ2OTAzNn0.0h77FrM3bY6sfsPbQMLUNGFmQRiRee71lp2MwnONmRE
-@sprintId = 8
-@goalId = 6
-@habitId = 6
-@intentionId = 2
-@toDoId = 2
-@moodId = 2
-@energyLevelId = 2
-@gratitudeId = 2
+@userId = 1
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImV4cCI6MTYyNDUyNzc1M30.bHw17Ahaf3H2wW9Ys58R11rdEh8v7lxcD5C6-difDrU
+@sprintId = 1
+@goalId = 1
+@habitId = 1
+@intentionId = 1
+@toDoId = 1
+@moodId = 1
+@energyLevelId = 1
+@gratitudeId = 1
 
 ######################################### USER REQUESTS ###############################################
 ### 
@@ -17,9 +17,9 @@ POST http://localhost:8000/api/auth/register/
 Content-Type: application/json
 
 {
-  "name": "alex",
-  "username": "alex",
-  "email": "alex@email.com",
+  "name": "alara",
+  "username": "alara",
+  "email": "alara@email.com",
   "password": "password",
   "passwordConfirmation": "password",
   "avatar": "image.jpg"
@@ -32,13 +32,13 @@ POST http://localhost:8000/api/auth/login/
 Content-Type: application/json
 
 {
-  "email": "alex@email.com",
+  "email": "alara@email.com",
   "password": "password"
 }
 
 ###
 # GET A USER'S PROFILE
-GET http://localhost:8000/api/auth/profile/{{userId}}
+GET http://localhost:8000/api/auth/profile/{{userId}}/
 
 ###
 # CHECK USER SPRINT FOR RESET
@@ -58,29 +58,29 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "sprintName": "KEVINN let kevin sprint one last time"
+  "sprintName": "NUMBER ONE HOW DARE YOU?"
 } 
 
 ###
 # GET ONE SPRINT
 GET http://localhost:8000/api/sprints/{{sprintId}}/
 
-###
-# DELETE A SPRINT
-DELETE http://localhost:8000/api/sprints/{{sprintId}}/
+### !! ERROR !!
+# # DELETE A SPRINT
+# DELETE http://localhost:8000/api/sprints/{{sprintId}}/
 
-Content-Type: application/json
+# Content-Type: application/json
 
-###
+### !! ERROR !!
 # UPDATE A SPRINT
-PUT http://localhost:8000/api/sprints/{{sprintId}}/
+# PUT http://localhost:8000/api/sprints/{{sprintId}}/
 
-Content-Type: application/json
-# Authorization: Bearer {{token}}
+# Content-Type: application/json
+# # Authorization: Bearer {{token}}
 
-{
-  "sprintName": "alara hates sprinting"
-} 
+# {
+#   "sprintName": "alara hates sprinting"
+# } 
 
 ################################### SPRINT HABIT/GOAL REQUESTS ##########################################
 
@@ -135,7 +135,7 @@ POST http://localhost:8000/api/sprints/{{sprintId}}/sprint-habits/
 Content-Type: application/json
 
 {
-  "habitName": "chloe has a habit",
+  "habitName": "huh has a habit",
   "habitDescription": "lalala"
 
 } 
@@ -275,7 +275,7 @@ PUT http://localhost:8000/api/sprints/{{sprintId}}/energy-levels/{{energyLevelId
 Content-Type: application/json
 
 {
-  "energyLevel": 0
+  "energyLevel": 4
 } 
 
 ////////////// GRATITUDE REQUESTS /////////////
