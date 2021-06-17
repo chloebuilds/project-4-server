@@ -1,9 +1,9 @@
 from django.urls import path
-from .views import SprintListView, SprintDetailView 
-from .views import SprintHabitListView, SprintHabitDetailView, SprintGoalListView, SprintGoalDetailView
-from .views import DailyMoodListView, DailyMoodDetailView, DailyToDoListView, DailyToDoDetailView
-from .views import DailyEnergyListView, DailyEnergyDetailView, DailyGratitudeListView, DailyGratitudeDetailView
-from .views import WeeklyIntentionListView, WeeklyIntentionDetailView
+from .views.sprint_views import SprintListView, SprintDetailView 
+from .views.sprint_length_views import SprintHabitListView, SprintHabitDetailView, SprintGoalListView, SprintGoalDetailView
+from .views.daily_views import DailyMoodListView, DailyMoodDetailView, DailyToDoListView, DailyToDoDetailView
+from .views.daily_views import DailyEnergyListView, DailyEnergyDetailView, DailyGratitudeListView, DailyGratitudeDetailView
+from .views.weekly_views import WeeklyIntentionListView, WeeklyIntentionDetailView
 
 
 urlpatterns = [
