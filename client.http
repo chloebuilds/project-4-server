@@ -1,6 +1,6 @@
 @userId = 1
-@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImV4cCI6MTYyNDUyNzc1M30.bHw17Ahaf3H2wW9Ys58R11rdEh8v7lxcD5C6-difDrU
-@sprintId = 1
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImV4cCI6MTYyNDY0NTk0M30.hAvysMdU8BWV6T988sCQgkQ03CkDqeqSV1KRAw9oaJw
+@sprintId = 2
 @goalId = 1
 @habitId = 1
 @intentionId = 1
@@ -32,8 +32,8 @@ POST http://localhost:8000/api/auth/login/
 Content-Type: application/json
 
 {
-  "email": "alara@email.com",
-  "password": "password"
+  "email": "c@c.com",
+  "password": "c"
 }
 
 ###
