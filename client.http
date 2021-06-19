@@ -1,5 +1,5 @@
 @userId = 1
-@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImV4cCI6MTYyNDUyNzc1M30.bHw17Ahaf3H2wW9Ys58R11rdEh8v7lxcD5C6-difDrU
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImV4cCI6MTYyNDY1OTgwNX0.dfcADNkLB0A8ctSv2sCYnvotz3aFrV05Vd6xADxcfkM
 @sprintId = 1
 @goalId = 1
 @habitId = 1
@@ -17,12 +17,13 @@ POST http://localhost:8000/api/auth/register/
 Content-Type: application/json
 
 {
-  "name": "alara",
-  "username": "alara",
-  "email": "alara@email.com",
-  "password": "password",
-  "passwordConfirmation": "password",
-  "avatar": "image.jpg"
+  "name": "el",
+  "username": "el",
+  "email": "el@email.com",
+  "password": "pass",
+  "passwordConfirmation": "pass",
+  "avatar": "image.jpg",
+  "city": "London"
 }
 
 ###
@@ -32,8 +33,8 @@ POST http://localhost:8000/api/auth/login/
 Content-Type: application/json
 
 {
-  "email": "alara@email.com",
-  "password": "password"
+  "email": "el@email.com",
+  "password": "pass"
 }
 
 ###
@@ -58,7 +59,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "sprintName": "NUMBER ONE HOW DARE YOU?"
+  "sprintName": "my new sprint"
 } 
 
 ###
@@ -97,8 +98,8 @@ POST http://localhost:8000/api/sprints/{{sprintId}}/sprint-goals/
 Content-Type: application/json
 
 {
-  "goalName": "kevin",
-  "goalDescription": "kevin rules the most"
+  "goalName": "my second goal",
+  "goalDescription": "make it beautiful!"
 
 } 
 
