@@ -1,5 +1,5 @@
 @userId = 1
-@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImV4cCI6MTYyNDUyNzc1M30.bHw17Ahaf3H2wW9Ys58R11rdEh8v7lxcD5C6-difDrU
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImV4cCI6MTYyNDU1NTMyOX0.JDdHVq6esWeG6oMhzXQb4vqpHmCOo5JVosz-o4v3GJY
 @sprintId = 1
 @goalId = 1
 @habitId = 1
@@ -32,7 +32,7 @@ POST http://localhost:8000/api/auth/login/
 Content-Type: application/json
 
 {
-  "email": "alara@email.com",
+  "email": "alex@email.com",
   "password": "password"
 }
 
@@ -58,7 +58,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "sprintName": "NUMBER ONE HOW DARE YOU?"
+  "sprintName": "Alex's actual sprint"
 } 
 
 ###
