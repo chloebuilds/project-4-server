@@ -114,8 +114,8 @@ class SprintGoal(models.Model):
     goal_name = models.CharField(max_length=50)
     start_date = models.DateField(auto_now_add=True)
     end_date = models.DateField()
-    goal_description = models.CharField(max_length=250)
-    is_done = models.BooleanField(default=False)
+    # goal_description = models.CharField(max_length=250)
+    # is_done = models.BooleanField(default=False)
     sprint = models.ForeignKey(
         Sprint,
         related_name='sprint_goals',

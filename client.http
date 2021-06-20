@@ -1,6 +1,6 @@
 @userId = 1
-@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImV4cCI6MTYyNDY1OTgwNX0.dfcADNkLB0A8ctSv2sCYnvotz3aFrV05Vd6xADxcfkM
-@sprintId = 4
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImV4cCI6MTYyNDgyMjQ1NH0.bKhdLVGUDeaih2qN43VgT-54taqYCa72Oay8-zek-68
+@sprintId = 1
 @goalId = 1
 @habitId = 1
 @intentionId = 1
@@ -98,9 +98,7 @@ POST http://localhost:8000/api/sprints/{{sprintId}}/sprint-goals/
 Content-Type: application/json
 
 {
-  "goalName": "my second goal",
-  "goalDescription": "make it beautiful!"
-
+  "goalName": "my second goal"
 } 
 
 ###
@@ -120,7 +118,7 @@ Content-Type: application/json
 
 {
   "goalName": "extra goal",
-  "goalDescription": "lalala"
+
 
 } 
 
