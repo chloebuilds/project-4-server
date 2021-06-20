@@ -43,7 +43,7 @@ class LoginView(APIView):
         try:
             user_to_login = User.objects.get(email=email)
         except User.DoesNotExist:
-            raise PermissionDenied()
+            raise PermpipissionDenied()
         # Now we have the user, we can check their password
         # The `check_password` method comes from AbstractUser
         if not user_to_login.check_password(password):
