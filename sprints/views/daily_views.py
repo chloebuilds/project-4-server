@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 #? from rest_framework.exceptions import NotFound
 
-from ..models import DailyToDo,  DailyMood, DailyEnergy, DailyGratitude
+from ..models import Sprint, DailyToDo,  DailyMood, DailyEnergy, DailyGratitude
 from ..serializers import DailyToDoSerializer, DailyMoodSerializer,  DailyEnergySerializer, DailyGratitudeSerializer 
 
 #! DAILY VIEWS
@@ -103,11 +103,13 @@ class DailyEnergyDetailView(APIView):
 
 #* Daily Gratitude
 class DailyGratitudeListView(APIView):
+
     #GET ALL GRATITUDES
     def get(self, _request, sprint_pk):
-        all_gratitudes = DailyGratitude.objects.all()
-        serialized_gratitudes = DailyGratitudeSerializer (all_gratitudes, many=True)
+        sprint = Sprint.objects.get(pk=sprint_pk)
+        serialized_gratitudes = DailyGratitudeSerializer (sprint.daily_gratitudes, many=True)
         return Response(serialized_gratitudes.data, status=status.HTTP_200_OK)
+
     #POST GRATITUDE 
     def post(self, request, sprint_pk):
         request.data['sprint'] = sprint_pk
@@ -117,12 +119,16 @@ class DailyGratitudeListView(APIView):
             serialized_gratitude.save()
             return Response(serialized_gratitude.data, status=status.HTTP_201_CREATED)
         return Response(serialized_gratitude.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+
 class DailyGratitudeDetailView(APIView):
+
     #DELETE GRATITUDE 
     def delete(self, _request, sprint_pk, gratitude_pk):
         gratitude_to_delete = DailyGratitude.objects.get(pk=gratitude_pk)
         gratitude_to_delete.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
     #UPDATE GRATITUDE 
     def put(self, request, sprint_pk, gratitude_pk):
         gratitude_to_update = DailyGratitude.objects.get(pk=gratitude_pk)

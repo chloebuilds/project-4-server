@@ -1,6 +1,6 @@
 @userId = 1
 @token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImV4cCI6MTYyNDY1OTgwNX0.dfcADNkLB0A8ctSv2sCYnvotz3aFrV05Vd6xADxcfkM
-@sprintId = 1
+@sprintId = 4
 @goalId = 1
 @habitId = 1
 @intentionId = 1
