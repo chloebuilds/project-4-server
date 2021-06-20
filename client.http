@@ -2,7 +2,7 @@
 @token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImV4cCI6MTYyNDY0NTk0M30.hAvysMdU8BWV6T988sCQgkQ03CkDqeqSV1KRAw9oaJw
 @sprintId = 2
 @goalId = 1
-@habitId = 1
+@habitId = 5
 @intentionId = 1
 @toDoId = 1
 @moodId = 1
@@ -135,8 +135,7 @@ POST http://localhost:8000/api/sprints/{{sprintId}}/sprint-habits/
 Content-Type: application/json
 
 {
-  "habitName": "huh has a habit",
-  "habitDescription": "lalala"
+  "habitName": "One last habit, probably won't get this done"
 
 } 
 
@@ -156,8 +155,7 @@ PUT http://localhost:8000/api/sprints/{{sprintId}}/sprint-habits/{{habitId}}/
 Content-Type: application/json
 
 {
-  "habitName": "extra habit",
-  "habitDescription": "lalala"
+  "habitName": "extra habit"
 
 } 
 

@@ -98,7 +98,6 @@ class SprintHabit(models.Model):
     habit_name = models.CharField(max_length=50 )
     start_date = models.DateField(auto_now_add=True)
     end_date = models.DateField()
-    habit_description = models.CharField(max_length=250)
     is_done = models.BooleanField(default=False)
     sprint = models.ForeignKey(
         Sprint,
