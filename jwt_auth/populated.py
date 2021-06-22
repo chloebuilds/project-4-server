@@ -11,4 +11,4 @@ class PopulatedUserSerializer(ModelSerializer):
     created_sprints = PopulatedSprintSerializer(many=True)
     class Meta:
         model = User
-        fields = ("id", "username", "name", "avatar", "dark_mode", "created_sprints", "city")
+        fields = ("id", "username", "name", "dark_mode", "created_sprints", "city")

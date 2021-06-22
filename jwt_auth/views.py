@@ -114,6 +114,5 @@ class ResetView(APIView):
                     if goal.end_date < todays_date:
                         goal.sprint = None
                         goal.save()
-        
         serialized_updated_user = PopulatedUserSerializer(user)
         return Response(serialized_updated_user.data, status=status.HTTP_200_OK)

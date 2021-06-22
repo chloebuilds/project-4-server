@@ -17,12 +17,11 @@ POST http://localhost:8000/api/auth/register/
 Content-Type: application/json
 
 {
-  "name": "el",
-  "username": "el",
-  "email": "el@email.com",
+  "name": "ag",
+  "username": "ag",
+  "email": "ag@email.com",
   "password": "pass",
   "passwordConfirmation": "pass",
-  "avatar": "image.jpg",
   "city": "London"
 }
 
