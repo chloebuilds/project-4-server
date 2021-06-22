@@ -43,7 +43,7 @@ class LoginView(APIView):
         try:
             user_to_login = User.objects.get(email=email)
         except User.DoesNotExist:
-            raise PermpipissionDenied()
+            raise PermissionDenied()
         # Now we have the user, we can check their password
         # The `check_password` method comes from AbstractUser
         if not user_to_login.check_password(password):
@@ -97,7 +97,8 @@ class ResetView(APIView):
         # If no current sprint, there user will have to create a new sprint anyway
         # So nothing to unlink
         if not current_sprint:
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            serialized_user = PopulatedUserSerializer(user)
+            return Response(serialized_user.data, status=status.HTTP_202_ACCEPTED)
 
         moods = list(current_sprint.moods.all())
         energy_levels = list(current_sprint.energy_levels.all())
@@ -113,6 +114,5 @@ class ResetView(APIView):
                     if goal.end_date < todays_date:
                         goal.sprint = None
                         goal.save()
-        
         serialized_updated_user = PopulatedUserSerializer(user)
         return Response(serialized_updated_user.data, status=status.HTTP_200_OK)
