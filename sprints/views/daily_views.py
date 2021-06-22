@@ -48,8 +48,8 @@ class DailyToDoDetailView(APIView):
 class DailyMoodListView(APIView):
     #GET ALL MOODS
     def get(self, _request, sprint_pk):
-        all_moods = DailyMood.objects.all()
-        serialized_moods = DailyMoodSerializer(all_moods, many=True)
+        sprint = Sprint.objects.get(pk=sprint_pk)
+        serialized_moods = DailyMoodSerializer(sprint.moods, many=True)
         return Response(serialized_moods.data, status=status.HTTP_200_OK)
     #POST A MOOD
     def post(self, request, sprint_pk):
