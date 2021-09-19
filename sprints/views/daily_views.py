@@ -19,7 +19,7 @@ class DailyToDoListView(APIView):
     #POST A TO-DO 
     def post(self, request, sprint_pk):
         request.data['sprint'] = sprint_pk
-        request.data["end_date"] = date.today() + timedelta(days=0)
+        request.data['end_date'] = date.today() + timedelta(days=0)
         serialized_to_do = DailyToDoSerializer(data = request.data)
         if serialized_to_do.is_valid():
             serialized_to_do.save()
@@ -54,7 +54,7 @@ class DailyMoodListView(APIView):
     #POST A MOOD
     def post(self, request, sprint_pk):
         request.data['sprint'] = sprint_pk
-        request.data["end_date"] = date.today() + timedelta(days=0)
+        request.data['end_date'] = date.today() + timedelta(days=0)
         serialized_mood = DailyMoodSerializer(data=request.data)
         if serialized_mood.is_valid():
             serialized_mood.save()
@@ -77,7 +77,7 @@ class DailyEnergyListView(APIView):
     #POST AN ENERGY LEVEL
     def post(self, request, sprint_pk):
         request.data['sprint'] = sprint_pk
-        request.data["end_date"] = date.today() + timedelta(days=0)
+        request.data['end_date'] = date.today() + timedelta(days=0)
         serialized_energy = DailyEnergySerializer(data=request.data)
         if serialized_energy.is_valid():
             serialized_energy.save()
@@ -113,7 +113,7 @@ class DailyGratitudeListView(APIView):
     #POST GRATITUDE 
     def post(self, request, sprint_pk):
         request.data['sprint'] = sprint_pk
-        request.data["end_date"] = date.today() + timedelta(days=0)
+        request.data['end_date'] = date.today() + timedelta(days=0)
         serialized_gratitude = DailyGratitudeSerializer(data=request.data)
         if serialized_gratitude.is_valid():
             serialized_gratitude.save()

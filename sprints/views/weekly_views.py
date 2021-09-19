@@ -21,7 +21,7 @@ class WeeklyIntentionListView(APIView):
     #POST AN INTENTION
     def post(self, request, sprint_pk):
         request.data['sprint'] = sprint_pk
-        request.data["end_date"] = date.today() + timedelta(days=6)
+        request.data['end_date'] = date.today() + timedelta(days=6)
         serialized_intention = WeeklyIntentionSerializer(data=request.data)
         if serialized_intention.is_valid():
             serialized_intention.save()

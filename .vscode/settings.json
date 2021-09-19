@@ -43,7 +43,7 @@
     "italic": false
   },
   {
-    "tag": "//",
+    "tag": "#",
     "color": "#474747",
     "strikethrough": true,
     "underline": false,
