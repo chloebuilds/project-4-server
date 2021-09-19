@@ -44,7 +44,7 @@ class DailyMood(models.Model):
         null=True
     )
     def __str__(self):
-        return f"{self.mood_name}"
+        return f'{self.mood_name}'
 
 #* Daily Energy Level
 class DailyEnergy(models.Model):
@@ -61,7 +61,7 @@ class DailyEnergy(models.Model):
         default=1
     )
     def __str__(self):
-        return f"{self.energy_level}"
+        return f'{self.energy_level}'
 
 #* Daily Gratitude
 class DailyGratitude(models.Model):
@@ -70,12 +70,12 @@ class DailyGratitude(models.Model):
     end_date = models.DateField()
     sprint = models.ForeignKey(
             Sprint,
-            related_name="daily_gratitudes",
+            related_name='daily_gratitudes',
             on_delete=models.PROTECT,
             null=True
         )
     def __str__(self):
-        return f"{self.daily_gratitude}"
+        return f'{self.daily_gratitude}'
 
 #! WEEKLY MODELS
 #* Weekly Intentions
@@ -85,12 +85,12 @@ class WeeklyIntention(models.Model):
     end_date = models.DateField()
     sprint = models.ForeignKey(
             Sprint,
-            related_name="weekly_intentions",
+            related_name='weekly_intentions',
             on_delete=models.PROTECT,
             null=True
         )
     def __str__(self):
-        return f"{self.weekly_intention}"
+        return f'{self.weekly_intention}'
 
 #! SPRINT-LENGTH MODELS
 #* Sprint Habits
@@ -106,7 +106,7 @@ class SprintHabit(models.Model):
         null=True
     )
     def __str__(self):
-        return f"{self.habit_name}"
+        return f'{self.habit_name}'
 
 #* Sprint Goals
 class SprintGoal(models.Model):
@@ -122,4 +122,4 @@ class SprintGoal(models.Model):
         null=True
     )
     def __str__(self):
-        return f"{self.goal_name}"
+        return f'{self.goal_name}'

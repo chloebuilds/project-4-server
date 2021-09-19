@@ -21,13 +21,13 @@ class UserSerializer(serializers.ModelSerializer):
         # You can use `.pop` on a dictionary in Python, which will remove the property and
         # store it in the variable you assign it to. Do this for password & password_confirmation so
         # we can compare them to make sure they're the same and, if so, validate the password.
-        password = data.pop("password")
-        password_confirmation = data.pop("password_confirmation")
+        password = data.pop('password')
+        password_confirmation = data.pop('password_confirmation')
         
         # First compare the password and password_confirmation. If not, raise a ValidationError
         # and send back an error message.
         if password != password_confirmation:
-            raise serializers.ValidationError({"password_confirmation": "Passwords do not match"})
+            raise serializers.ValidationError({'password_confirmation': 'Passwords do not match'})
         
         #! This is where we can use the password validator from Django. We use a try/except.
         #? `if not settings.DEBUG` means we don't validate in development but we do in production
@@ -39,10 +39,10 @@ class UserSerializer(serializers.ModelSerializer):
             # Rename the ValidationError for clarity as we'll use the ValidationError from Django
             # But we'll also raise a serializers.ValidationError, which would get confusing!
             except ValidationError as err:
-                raise serializers.ValidationError({"password": err.messages})
+                raise serializers.ValidationError({'password': err.messages})
         
         # Attach the hashed password to the data dictionary.
-        data["password"] = make_password(password)
+        data['password'] = make_password(password)
         
         # So, we removed the original password and password_confirmation.
         # Compared and validated the password.
@@ -52,4 +52,4 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = "__all__"
+        fields = '__all__'

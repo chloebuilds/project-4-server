@@ -21,7 +21,7 @@ class SprintHabitListView(APIView):
     #POST A HABIT
     def post(self, request, sprint_pk):
         request.data['sprint'] = sprint_pk
-        request.data["end_date"] = date.today() + timedelta(days=27)
+        request.data['end_date'] = date.today() + timedelta(days=27)
         serialized_sprint_habit = SprintHabitSerializer(data=request.data)
         if serialized_sprint_habit.is_valid():
             serialized_sprint_habit.save()
@@ -66,7 +66,7 @@ class SprintGoalListView(APIView):
     #POST A GOAL
     def post(self, request, sprint_pk):
         request.data['sprint'] = sprint_pk
-        request.data["end_date"] = date.today() + timedelta(days=27)
+        request.data['end_date'] = date.today() + timedelta(days=27)
         serialized_sprint_goal = SprintGoalSerializer(data=request.data)
         if serialized_sprint_goal.is_valid():
             serialized_sprint_goal.save()

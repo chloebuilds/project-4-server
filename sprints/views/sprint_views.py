@@ -23,7 +23,7 @@ class SprintListView(APIView):
         
     #POST A SPRINT
     def post(self, request):
-        request.data["end_date"] = date.today() + timedelta(days=27)
+        request.data['end_date'] = date.today() + timedelta(days=27)
         request.data['owner'] = request.user.id
         new_sprint = SprintSerializer(data=request.data)
         if new_sprint.is_valid():
