@@ -1,6 +1,6 @@
 {
-  "python.pythonPath": "/Users/alaraayan/.local/share/virtualenvs/server-JIVkFiM9/bin/python",
-  // "python.linting.pylintEnabled": true,
+  "python.pythonPath": "/Users/chloe/.local/share/virtualenvs/server-4izDxoWv/bin/python",
+  "python.linting.pylintEnabled": true,
   "workbench.colorCustomizations": {
     "statusBar.background": "#82a3ff",
     "titleBar.activeBackground": "#82a3ff",
@@ -71,5 +71,4 @@
   }
 ],
 "peacock.color": "#82A3FF",
-"python.linting.pylintEnabled": true,
 }
