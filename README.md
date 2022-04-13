@@ -79,7 +79,7 @@ Final stage of our preparation was setting up our Trello board. We were all alre
 
 We had daily standups within our group and worked together throughout the day. We merged our Git branches every evening, tested the app and assigned new tasks for the next day. Although we worked on our separate tasks, because the functionalities were very similar we were often collaborating, especially while building the backend.
 
-###### Our Trello board:
+<!-- ###### Our Trello board:
 
 <img src="images/trello.png" alt="trello board"/>
 
@@ -89,7 +89,7 @@ We had daily standups within our group and worked together throughout the day. W
 
 ###### Our ERD showing how everything is connected to the sprint which is connected to the user:
 
-<img src="images/erd.png" alt="erd diagram"/>
+<img src="images/erd.png" alt="erd diagram"/> -->
 
 ### Backend
 
@@ -140,7 +140,7 @@ In the frontend I took on the opportunity to build the dashboard, user registrat
 
 We also used Styled Components for this project. None of us had used it before and were very intrigued. I took on the task of putting together the styling and the look and feel of the app. I was very influenced by glassmorphism :) 
 
-## Screenshots
+<!-- ## Screenshots
 
 ###### Logged in user is guided through to create a sprint:
 
@@ -154,7 +154,7 @@ We also used Styled Components for this project. None of us had used it before a
 ###### Error handling:
 
 <img src="images/401.png" alt="authorisation error"/>
-<img src="images/404.png" alt="page not found error"/>
+<img src="images/404.png" alt="page not found error"/> -->
 
 ## Challenges
 
